@@ -3,7 +3,9 @@ const Router = express.Router();
 const User = require('./model.js')
 const Evento = require('./modelEvento.js')
 const path = require('path');
-var operaciones=require('./CRUD.js')
+
+
+
 
 // Agregar a un usuario
 Router.get('/newUser', function(req, res) {
@@ -25,7 +27,6 @@ Router.get('/newUser', function(req, res) {
 Router.post('/login',function(req, res){
   let email = req.body.user
   let password=req.body.pass
-
   User.findOne({email: email,password:password}).exec(function(err, user){
       if (err) {
           res.send('Error en la base de datos')
@@ -34,9 +35,11 @@ Router.post('/login',function(req, res){
         res.send("Usuario o contraseña incorrecto")
       }
     else {
+
       res.send('Validado')
     }
   })
+
 })
 
 Router.post('/events/new',function(req,res){
@@ -66,10 +69,10 @@ ev.save(function(error) {
 })
 
 })
-Router.post('/events/all',function(req, res){
+Router.get('/events/all',function(req, res){
 
 
-  User.find({email:'jasiel@gmail.com'}).exec(function(err, eventos){
+  Evento.find({}).exec(function(err, eventos){
       if (err) {
           res.send('Error en la base de datos')
       }
@@ -80,6 +83,28 @@ Router.post('/events/all',function(req, res){
   })
 })
 
+Router.post('/events/delete/*',function(req,res){
+  Evento.remove({id:req.body.id},function(error) {
+      if (error) {
+          res.send('Error al eliminar el evento '+error)
+      }
+      else {
+        res.send("Evento Eliminado")
+      }
+      })
+})
+
+Router.post('/events/update',function(req,res){
+
+Evento.update({id:req.body.id},{start:req.body.start,end:req.body.end},function(error) {
+      if (error) {
+          res.send('Error al actualizar el evento ')
+      }
+      else {
+        res.send("Evento Actualizado")
+      }
+    })
+})
 
 
 module.exports = Router

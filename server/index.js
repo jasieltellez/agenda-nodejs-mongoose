@@ -6,7 +6,8 @@ const http = require('http'),
       mongoose = require('mongoose');
 
 var mongoClient=require('mongodb').MongoClient;
-var operaciones=require('./CRUD.js');
+
+
 const PORT = 3000
 const app = express()
 
@@ -19,6 +20,7 @@ app.use(express.static('../client'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use('/', Routing)
+
 
 
 Server.listen(PORT, function() {

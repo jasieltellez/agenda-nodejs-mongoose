@@ -6,8 +6,8 @@
     id: {type: Number, required: true, unique: true},
     email: { type: String, required: true},
     title: { type: String, required: true },
-    start: { type: Date, required: true},
-    end: { type: Date, required: false}
+    start: { type: String, required: true},
+    end: { type: String, required: false}
 
 
   })
